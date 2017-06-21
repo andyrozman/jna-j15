@@ -45,26 +45,84 @@
   <dependencies>
     <dependency>
       <groupId>net.java.dev.jna</groupId>
-      <artifactId>jna</artifactId>
+      <artifactId>jna-j15</artifactId>
       <version>4.2.2</version>
     </dependency>
+
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>3.8.1</version>
+          <scope>test</scope>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.reflections</groupId>
+          <artifactId>reflections</artifactId>
+          <version>0.9.8</version>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-             <source>1.5</source>
-             <target>1.5</target>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
 
-  </build>
+    <build>
+        <defaultGoal>compile</defaultGoal>
+        <directory>target-platform</directory>
+        <outputDirectory>target-platform/classes</outputDirectory>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <testOutputDirectory>target-platform/test-classes-platform</testOutputDirectory>
+        <sourceDirectory>contrib/platform/src</sourceDirectory>
+        <scriptSourceDirectory>src</scriptSourceDirectory>
+        <testSourceDirectory>contrib/platform/test33</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>com/sun/jna/ptr/**</exclude>
+                        <exclude>com/sun/jna/win32/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+
+    <properties>
+        <skipTests>true</skipTests>
+
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
 </project>

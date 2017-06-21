@@ -21,4 +21,6 @@ native/libffi/doc/libffi.info
 junit-*
 pom-jna.xml.asc
 pom-jna-platform.xml.asc
-target/*~
+target/**
+.idea/**
+target-platform/**
