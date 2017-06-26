@@ -2,68 +2,68 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
   http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>net.java.dev.jna</groupId>
-  <artifactId>jna-platform-j15</artifactId>
-  <version>4.2.2</version>
-  <packaging>jar</packaging>
+    <groupId>net.java.dev.jna</groupId>
+    <artifactId>jna-platform-j15</artifactId>
+    <version>4.2.2</version>
+    <packaging>jar</packaging>
 
-  <name>Java Native Access Platform</name>
-  <description>Java Native Access Platform</description>
-  <url>https://github.com/java-native-access/jna</url>
-
-  <licenses>
-      <license>
-          <name>LGPL, version 2.1</name>
-          <url>http://www.gnu.org/licenses/licenses.html</url>
-          <distribution>repo</distribution>
-      </license>
-      <license>
-          <name>ASL, version 2</name>
-          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-          <distribution>repo</distribution>
-      </license>
-  </licenses>
-
-  <scm>
-    <connection>scm:git:https://github.com/java-native-access/jna</connection>
-    <developerConnection>scm:git:ssh://git@github.com/java-native-access/jna.git</developerConnection>
+    <name>Java Native Access (Java 1.5)</name>
+    <description>Java Native Access (JNA) Library (Java 1.5)</description>
     <url>https://github.com/java-native-access/jna</url>
-  </scm>
 
-  <developers>
-    <developer>
-      <id>twall</id>
-      <name>Timothy Wall</name>
-      <roles>
-        <role>Owner</role>
-      </roles>
-    </developer>
-  </developers>
+    <licenses>
+        <license>
+            <name>LGPL, version 2.1</name>
+            <url>http://www.gnu.org/licenses/licenses.html</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>ASL, version 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <dependencies>
-    <dependency>
-      <groupId>net.java.dev.jna</groupId>
-      <artifactId>jna-j15</artifactId>
-      <version>4.2.2</version>
-    </dependency>
+    <scm>
+        <connection>scm:git:https://github.com/java-native-access/jna</connection>
+        <developerConnection>scm:git:ssh://git@github.com/java-native-access/jna.git</developerConnection>
+        <url>https://github.com/java-native-access/jna</url>
+    </scm>
 
-      <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>3.8.1</version>
-          <scope>test</scope>
-      </dependency>
+    <developers>
+        <developer>
+            <id>twall</id>
+            <name>Timothy Wall</name>
+            <roles>
+                <role>Owner</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-j15</artifactId>
+            <version>4.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
 
 
-      <dependency>
-          <groupId>org.reflections</groupId>
-          <artifactId>reflections</artifactId>
-          <version>0.9.8</version>
-          <scope>test</scope>
-      </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.8</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 
     <build>
@@ -71,24 +71,14 @@
         <directory>target-platform</directory>
         <outputDirectory>target-platform/classes</outputDirectory>
         <finalName>${project.artifactId}-${project.version}</finalName>
-        <testOutputDirectory>target-platform/test-classes-platform</testOutputDirectory>
         <sourceDirectory>contrib/platform/src</sourceDirectory>
-        <scriptSourceDirectory>src</scriptSourceDirectory>
-        <testSourceDirectory>contrib/platform/test33</testSourceDirectory>
-        <resources>
-            <resource>
-                <directory>src</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
+
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
             </testResource>
         </testResources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -101,10 +91,62 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                    </archive>
+                    <supportedProjectTypes>
+                        <supportedProjectType>jar</supportedProjectType>
+                    </supportedProjectTypes>
+                    <instructions>
+                        <Main-Class>com.sun.jna.Native</Main-Class>
+                        <Bundle-ContactAddress>${developer.email}</Bundle-ContactAddress>
+                        <Bundle-DocURL>${project.url}</Bundle-DocURL>
+                        <Bundle-Category>jni</Bundle-Category>
+                        <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                        <Bundle-Name>jna</Bundle-Name>
+                        <Bundle-Description>${project.description}</Bundle-Description>
+                        <Bundle-SymbolicName>com.sun.jna</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
+                        <Bundle-Vendor>JNA Development Team (Andy for 1.5)</Bundle-Vendor>
+                        <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                        <Export-Package>
+                            com.sun.jna.platform,
+                            com.sun.jna.platform.dnd,
+                            com.sun.jna.platform.mac,
+                            com.sun.jna.platform.unix,
+                            com.sun.jna.platform.win32,
+                            com.sun.jna.platform.win32.COM,
+                            com.sun.jna.platform.win32.COM.tlb,
+                            com.sun.jna.platform.win32.COM.tlb.imp,
+                            com.sun.jna.platform.wince
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>bundle</id>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
                     <excludes>
                         <exclude>com/sun/jna/ptr/**</exclude>
                         <exclude>com/sun/jna/win32/**</exclude>
@@ -115,12 +157,8 @@
     </build>
 
 
-
-
     <properties>
         <skipTests>true</skipTests>
-
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
