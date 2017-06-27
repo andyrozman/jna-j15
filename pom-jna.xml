@@ -1,0 +1,191 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+  http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.java.dev.jna</groupId>
+    <artifactId>jna-j15</artifactId>
+    <version>4.2.2</version>
+    <packaging>jar</packaging>
+
+    <name>Java Native Access (Java 1.5)</name>
+    <description>Java Native Access (JNA) Library (Java 1.5)</description>
+    <url>https://github.com/java-native-access/jna</url>
+
+    <licenses>
+        <license>
+            <name>LGPL, version 2.1</name>
+            <url>http://www.gnu.org/licenses/licenses.html</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>ASL, version 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/java-native-access/jna</connection>
+        <developerConnection>scm:git:ssh://git@github.com/java-native-access/jna.git</developerConnection>
+        <url>https://github.com/java-native-access/jna</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>twall</id>
+            <name>Timothy Wall</name>
+            <roles>
+                <role>Owner</role>
+            </roles>
+        </developer>
+    </developers>
+
+
+    <build>
+        <defaultGoal>compile</defaultGoal>
+        <directory>target</directory>
+        <outputDirectory>target/classes</outputDirectory>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
+        <sourceDirectory>src</sourceDirectory>
+
+
+        <resources>
+            <resource>
+                <directory>lib/native_unpacked</directory>
+            </resource>
+        </resources>
+
+
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+
+            <!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/service/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin> -->
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                    </archive>
+                    <supportedProjectTypes>
+                        <supportedProjectType>jar</supportedProjectType>
+                    </supportedProjectTypes>
+                    <instructions>
+                        <Main-Class>com.sun.jna.Native</Main-Class>
+                        <Bundle-ContactAddress>${developer.email}</Bundle-ContactAddress>
+                        <Bundle-DocURL>${project.url}</Bundle-DocURL>
+                        <Bundle-Category>jni</Bundle-Category>
+                        <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+                        <Bundle-Name>jna</Bundle-Name>
+                        <Bundle-Description>${project.description}</Bundle-Description>
+                        <Bundle-SymbolicName>com.sun.jna</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
+                        <Bundle-Vendor>JNA Development Team (Andy for 1.5)</Bundle-Vendor>
+                        <!--<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy> -->
+                        <Export-Package>*</Export-Package>
+                        <Bundle-NativeCode>
+                            com/sun/jna/win32-x86/jnidispatch.dll;processor=x86;osname=win32,
+                            com/sun/jna/win32-x86-64/jnidispatch.dll;processor=x86-64;osname=win32,
+                            com/sun/jna/win32-x86/jnidispatch.dll;processor=x86;osname=win,
+                            com/sun/jna/win32-x86-64/jnidispatch.dll;processor=x86-64;osname=win,
+                            com/sun/jna/w32ce-arm/jnidispatch.dll;processor=arm;osname=wince,
+                            com/sun/jna/sunos-x86/libjnidispatch.so;processor=x86;osname=sunos,
+                            com/sun/jna/sunos-x86-64/libjnidispatch.so;processor=x86-64;osname=sunos,
+                            com/sun/jna/sunos-sparc/libjnidispatch.so;processor=sparc;osname=sunos,
+                            com/sun/jna/sunos-sparcv9/libjnidispatch.so;processor=sparcv9;osname=sunos,
+                            com/sun/jna/aix-ppc/libjnidispatch.a;processor=ppc;osname=aix,
+                            com/sun/jna/aix-ppc64/libjnidispatch.a;processor=ppc64;osname=aix,
+                            com/sun/jna/linux-ppc/libjnidispatch.so;processor=ppc;osname=linux,
+                            com/sun/jna/linux-ppc64/libjnidispatch.so;processor=ppc64;osname=linux,
+                            com/sun/jna/linux-ppc64le/libjnidispatch.so;processor=ppc64le;osname=linux,
+                            com/sun/jna/linux-x86/libjnidispatch.so;processor=x86;osname=linux,
+                            com/sun/jna/linux-x86-64/libjnidispatch.so;processor=x86-64;osname=linux,
+                            com/sun/jna/linux-arm/libjnidispatch.so;processor=arm;osname=linux,
+                            com/sun/jna/linux-aarch64/libjnidispatch.so;processor=aarch64;osname=linux,
+                            com/sun/jna/linux-ia64/libjnidispatch.so;processor=ia64;osname=linux,
+                            com/sun/jna/linux-sparcv9/libjnidispatch.so;processor=sparcv9;osname=linux,
+                            com/sun/jna/freebsd-x86/libjnidispatch.so;processor=x86;osname=freebsd,
+                            com/sun/jna/freebsd-x86-64/libjnidispatch.so;processor=x86-64;osname=freebsd,
+                            com/sun/jna/openbsd-x86/libjnidispatch.so;processor=x86;osname=openbsd,
+                            com/sun/jna/openbsd-x86-64/libjnidispatch.so;processor=x86-64;osname=openbsd,
+                            com/sun/jna/darwin/libjnidispatch.jnilib;osname=macosx;processor=x86;processor=x86-64;processor=ppc
+                        </Bundle-NativeCode>
+                    </instructions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>bundle</id>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.8</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <properties>
+        <skipTests>true</skipTests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+</project>
