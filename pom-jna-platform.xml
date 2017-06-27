@@ -9,8 +9,8 @@
     <version>4.2.2</version>
     <packaging>jar</packaging>
 
-    <name>Java Native Access (Java 1.5)</name>
-    <description>Java Native Access (JNA) Library (Java 1.5)</description>
+    <name>Java Native Access - Platform (Java 1.5)</name>
+    <description>Java Native Access (JNA) Library - Platform (Java 1.5)</description>
     <url>https://github.com/java-native-access/jna</url>
 
     <licenses>

@@ -55,10 +55,6 @@
         <resources>
             <resource>
                 <directory>lib/native_unpacked</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
             </resource>
         </resources>
 
@@ -109,10 +105,10 @@
                         <Bundle-Description>${project.description}</Bundle-Description>
                         <Bundle-SymbolicName>com.sun.jna</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <!--<Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment> -->
+                        <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
                         <Bundle-Vendor>JNA Development Team (Andy for 1.5)</Bundle-Vendor>
-                        <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                        <!-- <Export-Package>*</Export-Package> -->
+                        <!--<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy> -->
+                        <Export-Package>*</Export-Package>
                         <Bundle-NativeCode>
                             com/sun/jna/win32-x86/jnidispatch.dll;processor=x86;osname=win32,
                             com/sun/jna/win32-x86-64/jnidispatch.dll;processor=x86-64;osname=win32,
@@ -140,7 +136,6 @@
                             com/sun/jna/openbsd-x86-64/libjnidispatch.so;processor=x86-64;osname=openbsd,
                             com/sun/jna/darwin/libjnidispatch.jnilib;osname=macosx;processor=x86;processor=x86-64;processor=ppc
                         </Bundle-NativeCode>
-
                     </instructions>
                 </configuration>
                 <executions>
